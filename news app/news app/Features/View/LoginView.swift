@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject private var appSceneRouter: AppSceneRouter
     @StateObject private var vm = LoginVM()
     
     var screenConfiguration: ScreenConfiguration {
@@ -36,8 +37,10 @@ struct LoginView: View {
                     loginSocial
                 }.padding(.top, AppConfig.layout.hugeSpace * 2)
                     .padding(.horizontal, AppConfig.layout.standardSpace)
+            }.onReceive(vm.onNextScreen) { _ in
+                appSceneRouter.rootView = .tabview
             }
-        }
+        }.environmentObject(appSceneRouter)
     }
 }
 
@@ -58,7 +61,7 @@ private extension LoginView {
     
     var loginButton: some View {
         return CommonButton(text: "Login", isEnable: $vm.isEnableButton) {
-            // TODO: - Handle login
+            vm.login()
         }
     }
     

@@ -10,7 +10,7 @@ import SwiftUI
 struct SplashScreenView: View {
     @EnvironmentObject private var appSceneRouter: AppSceneRouter
     @StateObject private var vm = SplashScreenVM()
-    
+
     var screenConfiguration: ScreenConfiguration {
         return ScreenConfiguration(title: "", showBackButton: false, showNaviBar: false)
     }
@@ -24,9 +24,13 @@ struct SplashScreenView: View {
             }
         }.onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                withAnimation(.spring()) {
-                    appSceneRouter.rootView = .login
-                }
+                vm.handleAppState()
+            }
+        }.onReceive(vm.onLoggedIn) { value in
+            if value {
+                appSceneRouter.rootView = .tabview
+            } else {
+                appSceneRouter.rootView = .login
             }
         }
     }

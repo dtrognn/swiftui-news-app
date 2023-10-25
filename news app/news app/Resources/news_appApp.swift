@@ -22,10 +22,10 @@ struct news_appApp: App {
                     case .login:
                         LoginView()
                     case .tabview:
-                        Text("")
+                        MainTabView()
                     }
-                }.environmentObject(appSceneRouter)
-            }
+                }
+            }.environmentObject(appSceneRouter)
         }
     }
 }

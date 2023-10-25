@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
     @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var appSceneRouter: AppSceneRouter
     @StateObject private var vm = RegisterVM()
 
     var screenConfiguration: ScreenConfiguration {
@@ -31,13 +32,15 @@ struct RegisterView: View {
                             registerButton
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     backToLoginButton
                 }.padding(.top, AppConfig.layout.hugeSpace * 2)
                     .padding(.horizontal, AppConfig.layout.standardSpace)
-            }
+            }.onReceive(vm.onNextScreen, perform: { _ in
+                appSceneRouter.rootView = .tabview
+            })
         }
     }
 }
@@ -45,7 +48,7 @@ struct RegisterView: View {
 private extension RegisterView {
     var registerButton: some View {
         return CommonButton(text: "Register", isEnable: $vm.isEnableButton) {
-            // TODO: - Handle login
+            vm.register()
         }
     }
 

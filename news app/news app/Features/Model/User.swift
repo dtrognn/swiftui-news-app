@@ -12,4 +12,13 @@ struct User {
     let fullname: String
     let email: String
     let created: String
+
+    var toDict: [String: Any] {
+        return [
+            "uid": uid,
+            "fullname": fullname,
+            "email": email,
+            "created": created
+        ]
+    }
 }

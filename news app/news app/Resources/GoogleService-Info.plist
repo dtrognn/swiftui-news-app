@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBQ3CiUMUb75YhUR8vOD5GEQ2_jmcSlZvY</string>
+	<string>AIzaSyCdJuulmB-1EHFC52Y_pwwD3854FhOvfOc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>175742553830</string>
+	<string>911837938722</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.dtrognn.news-app</string>
 	<key>PROJECT_ID</key>
-	<string>news-app-82667</string>
+	<string>news-app-80371</string>
 	<key>STORAGE_BUCKET</key>
-	<string>news-app-82667.appspot.com</string>
+	<string>news-app-80371.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:175742553830:ios:d68d5225286619c6787527</string>
+	<string>1:911837938722:ios:16d574dc677283fc44367b</string>
 </dict>
 </plist>
