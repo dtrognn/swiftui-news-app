@@ -10,10 +10,22 @@ import SwiftUI
 @main
 struct news_appApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var appSceneRouter = AppSceneRouter()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                Group {
+                    switch appSceneRouter.rootView {
+                    case .splash:
+                        SplashScreenView()
+                    case .login:
+                        LoginView()
+                    case .tabview:
+                        Text("")
+                    }
+                }.environmentObject(appSceneRouter)
+            }
         }
     }
 }
