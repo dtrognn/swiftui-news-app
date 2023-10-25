@@ -22,4 +22,12 @@ open class BaseVM: ObservableObject {
     open func makeSubscription() {}
 
     open func subcribe() {}
+    
+    func showLoading(_ show: Bool) {
+        if show {
+            ProgressHUD.show()
+        } else {
+            ProgressHUD.dismiss()
+        }
+    }
 }
