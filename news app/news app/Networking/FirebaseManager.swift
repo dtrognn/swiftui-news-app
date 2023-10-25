@@ -8,7 +8,7 @@
 import FirebaseAuth
 import Foundation
 
-class FirebaseManager {
+class FirebaseManager: BaseVM {
     func register<T>(with email: String, password: String, complete: @escaping (_ result: Result<T, Error>) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {

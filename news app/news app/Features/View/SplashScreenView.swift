@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @EnvironmentObject private var appSceneRouter: AppSceneRouter
+    @StateObject private var vm = SplashScreenVM()
     
     var screenConfiguration: ScreenConfiguration {
         return ScreenConfiguration(title: "", showBackButton: false, showNaviBar: false)

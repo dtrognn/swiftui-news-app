@@ -25,6 +25,7 @@ struct ScreenContainerView<Content: View>: View {
                     NaviBarView(screenConfiguration: screenConfiguration)
                 }
                 content()
+                    .navigationBarHidden(true)
             }
         }.ignoresSafeArea()
     }
