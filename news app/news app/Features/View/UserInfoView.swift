@@ -17,10 +17,16 @@ struct UserInfoView: View {
 
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
-            VStack {
+            VStack(spacing: AppConfig.layout.hugeSpace) {
+                VStack(alignment: .leading, spacing: AppConfig.layout.mediumSpace) {
+                    fullnameText
+                    emailInfoText
+                }
                 logoutButton
             }.padding(.horizontal, AppConfig.layout.standardSpace)
                 .padding(.top, AppConfig.layout.hugeSpace * 3)
+        }.onAppear {
+            vm.fetchData()
         }.onReceive(vm.onNextScreen, perform: { _ in
             appSceneRouter.rootView = .login
         })
@@ -32,6 +38,18 @@ private extension UserInfoView {
         return CommonButton(text: "Logout", isEnable: .constant(true)) {
             vm.logOut()
         }
+    }
+    
+    var fullnameText: some View {
+        return Text(vm.user?.fullname ?? "Unknow")
+            .font(AppConfig.font.semibold16)
+            .foregroundColor(AppConfig.theme.textNormalColor)
+    }
+    
+    var emailInfoText: some View {
+        return Text(vm.user?.email ?? "example@gmail.com")
+            .font(AppConfig.font.regular14)
+            .foregroundColor(AppConfig.theme.textNoteColor)
     }
 }
 

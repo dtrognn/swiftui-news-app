@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 class UserInfoVM: FirebaseManager {
+    @Published var user: User?
     var onNextScreen = PassthroughSubject<Void, Never>()
 
     func logOut() {
@@ -18,6 +19,19 @@ class UserInfoVM: FirebaseManager {
             switch result {
             case .success:
                 self?.onNextScreen.send(())
+            case .failure(let error):
+                self?.handleError(error)
+            }
+        }
+    }
+
+    func fetchData() {
+        showLoading(true)
+        getUserInfo { [weak self] result in
+            self?.showLoading(false)
+            switch result {
+            case .success(let user):
+                self?.user = user
             case .failure(let error):
                 self?.handleError(error)
             }

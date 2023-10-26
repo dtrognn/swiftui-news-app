@@ -17,7 +17,7 @@ class FirebaseManager: BaseVM {
     
     override init() {
         super.init()
-//        self.userSession = Auth.auth().currentUser
+        self.userSession = Auth.auth().currentUser
     }
     
     private let COLLECTION_USER = Firestore.firestore().collection("users")
@@ -50,6 +50,25 @@ class FirebaseManager: BaseVM {
                 guard let result = result else { return }
                 self.userSession = result.user
                 complete(.success(true))
+            }
+        }
+    }
+    
+    func getUserInfo(complete: @escaping (_ result: Result<User, Error>) -> Void) {
+        guard let uid = userSession?.uid else { return }
+        self.COLLECTION_USER.document(uid).getDocument { document, error in
+            if let error = error {
+                complete(.failure(error))
+                return
+            }
+            
+            if let document = document,
+               let fullname = document.get("fullname") as? String,
+               let email = document.get("email") as? String,
+               let create = document.get("created") as? String
+            {
+                let user = User(uid: uid, fullname: fullname, email: email, created: create)
+                complete(.success(user))
             }
         }
     }
