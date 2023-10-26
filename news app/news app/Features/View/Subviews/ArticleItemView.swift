@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ArticleItemView: View {
-    var data: ArticleItemViewData
+    @ObservedObject var data: ArticleItemViewData
     var onAction: (ArticleItemViewData) -> Void
 
     var body: some View {
@@ -23,7 +23,14 @@ struct ArticleItemView: View {
                         image
                         titleText
                         descriptionText
-                        authorView
+                        HStack(spacing: AppConfig.layout.zero) {
+                            authorView
+                            Spacer()
+                            HStack {
+                                bookmarkButton
+                                sharedButton
+                            }
+                        }
                     }.padding(.all, AppConfig.layout.standardSpace)
                         .background(AppConfig.theme.rowCommonBackgroundColor)
                         .cornerRadius(AppConfig.layout.standardCornerRadius)
@@ -65,7 +72,7 @@ private extension ArticleItemView {
 
     var authorText: some View {
         return Text(data.source)
-            .font(AppConfig.font.regular12)
+            .font(AppConfig.font.regular14)
             .foregroundColor(AppConfig.theme.textNoteColor)
             .multilineTextAlignment(.leading)
     }
@@ -87,9 +94,43 @@ private extension ArticleItemView {
 
     var timeText: some View {
         return Text("\(data.publishedAt)")
-            .font(AppConfig.font.regular12)
+            .font(AppConfig.font.regular14)
             .foregroundColor(AppConfig.theme.textNoteColor)
             .multilineTextAlignment(.leading)
+    }
+
+    var bookmarkButton: some View {
+        return Button {
+            data.isBookMark.toggle()
+        } label: {
+            circleBackground.overlay(bookmarkImage)
+        }
+    }
+
+    var bookmarkImage: some View {
+        return Image(systemName: data.isBookMark ? "bookmark.fill" : "bookmark")
+            .renderingMode(.template)
+            .foregroundColor(AppConfig.theme.iconColor)
+    }
+
+    var sharedButton: some View {
+        return Button {
+            presentSharedSheet(data.url)
+        } label: {
+            circleBackground.overlay(sharedImage)
+        }
+    }
+
+    var sharedImage: some View {
+        return Image(systemName: "square.and.arrow.up")
+            .renderingMode(.template)
+            .foregroundColor(AppConfig.theme.iconColor)
+    }
+
+    var circleBackground: some View {
+        return Circle()
+            .foregroundColor(AppConfig.theme.lineColor)
+            .frame(width: 35, height: 35)
     }
 }
 
@@ -99,5 +140,6 @@ private extension ArticleItemView {
         title: "After she was freed, Israeli hostage offered a handshake to Hamas - NBC News",
         description: "After she was freed, Israeli hostage Yocheved Lifshitz offered a handshake to her Hamas captors.",
         url: "https://www.nbcnews.com/news/world/israeli-hostage-handshake-hamas-rcna121852",
-        urlToImage: "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2023-10/231024-yocheved-lifshitz-press-conference-jm-0647-693270.jpg", publishedAt: ""), onAction: { _ in })
+        urlToImage: "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2023-10/231024-yocheved-lifshitz-press-conference-jm-0647-693270.jpg", publishedAt: ""
+    ), onAction: { _ in })
 }

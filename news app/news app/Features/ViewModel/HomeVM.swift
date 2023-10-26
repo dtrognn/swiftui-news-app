@@ -52,12 +52,14 @@ class HomeVM: NetworkManager {
 }
 
 private extension ArticleItemViewData {
-    init(_ data: Article) {
-        self.source = data.source?.name ?? " "
-        self.title = data.title ?? ""
-        self.description = data.description ?? ""
-        self.url = data.url ?? ""
-        self.urlToImage = data.urlToImage ?? ""
-        self.publishedAt = data.timeFormatted
+    convenience init(_ data: Article) {
+        self.init(
+            source: data.source?.name ?? " ",
+            title: data.title ?? "",
+            description: data.description ?? "",
+            url: data.url ?? "",
+            urlToImage: data.urlToImage ?? "",
+            publishedAt: data.timeFormatted
+        )
     }
 }
