@@ -58,6 +58,6 @@ private extension ArticleItemViewData {
         self.description = data.description ?? ""
         self.url = data.url ?? ""
         self.urlToImage = data.urlToImage ?? ""
-        self.publishedAt = data.publishedAt ?? ""
+        self.publishedAt = data.timeFormatted
     }
 }

@@ -29,12 +29,6 @@ struct Article: Codable {
     let publishedAt: String?
     let content: String?
 
-//    var publishedDate: Date? {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-//        return dateFormatter.date(from: publishedAt)
-//    }
-
     init(source: Source?, author: String?, title: String?, description: String?, url: String?, urlToImage: String?, publishedAt: String?, content: String?) {
         self.source = source
         self.author = author
@@ -44,6 +38,25 @@ struct Article: Codable {
         self.urlToImage = urlToImage
         self.publishedAt = publishedAt
         self.content = content
+    }
+    
+    var timeFormatted: String {
+        return convertDateFormat(publishedAt ?? "") ?? ""
+    }
+    
+    func convertDateFormat(_ inputDate: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = DateFormatType.server.rawValue
+        inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
+
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = DateFormatType.dayMonthYear.rawValue
+
+        if let date = inputFormatter.date(from: inputDate) {
+            return outputFormatter.string(from: date)
+        } else {
+            return nil
+        }
     }
 
     enum CodingKeys: String, CodingKey {
