@@ -39,6 +39,7 @@ private extension ArticleItemView {
             .font(AppConfig.font.regular16)
             .foregroundColor(AppConfig.theme.textNormalColor)
             .multilineTextAlignment(.leading)
+            .lineLimit(2)
     }
 
     var descriptionText: some View {
@@ -46,6 +47,7 @@ private extension ArticleItemView {
             .font(AppConfig.font.regular14)
             .foregroundColor(AppConfig.theme.textNoteColor)
             .multilineTextAlignment(.leading)
+            .lineLimit(3)
     }
 
     var image: some View {

@@ -17,14 +17,14 @@ class HomeVM: NetworkManager {
         return "/v2/\(newsType.rawValue)?country=\(country.rawValue)&category=\(catergory.rawValue)"
     }
 
-    private func getRequest(complete: @escaping (_ result: Result<ArticleResponse, Error>) -> Void) {
+    private func getRequest(complete: @escaping (_ result: Result<ArticleResponse, Error>) -> Void) async {
         let endpoint = getEndpoint()
         get(path: endpoint, complete: complete)
     }
 
-    func getData() {
+    func getData() async {
         showLoading(true)
-        getRequest { [weak self] result in
+        await getRequest { [weak self] result in
             self?.showLoading(false)
             switch result {
             case .success(let data):

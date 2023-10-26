@@ -15,6 +15,7 @@ struct ImageURL: View {
             switch image {
             case .empty:
                 emptyView
+                    .frame(minHeight: 150, maxHeight: 200)
             case .success(let image):
                 image
                     .resizable()
@@ -23,6 +24,7 @@ struct ImageURL: View {
                     .cornerRadius(AppConfig.layout.standardCornerRadius)
             case .failure:
                 failureView
+                    .frame(minHeight: 150, maxHeight: 200)
             @unknown default:
                 fatalError()
             }
@@ -40,6 +42,14 @@ private extension ImageURL {
     }
 
     var failureView: some View {
+        return HStack {
+            Spacer()
+            imageFailure
+            Spacer()
+        }
+    }
+    
+    var imageFailure: some View {
         return Image(systemName: "photo")
             .resizable()
             .frame(width: 50, height: 50)

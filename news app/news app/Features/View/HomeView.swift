@@ -16,7 +16,7 @@ struct HomeView: View {
 
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack {
                     LazyVStack(spacing: AppConfig.layout.standardSpace) {
                         ForEach(vm.news) { article in
@@ -28,7 +28,7 @@ struct HomeView: View {
                 }.padding([.horizontal, .top], AppConfig.layout.standardSpace)
             }
         }.onAppear {
-            vm.getData()
+            Task { await vm.getData() }
         }
     }
 }
