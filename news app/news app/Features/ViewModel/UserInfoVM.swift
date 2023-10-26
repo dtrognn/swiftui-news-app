@@ -38,6 +38,19 @@ class UserInfoVM: FirebaseManager {
         }
     }
 
+    func deleteUser() {
+        showLoading(true)
+        deleteUser { [weak self] result in
+            self?.showLoading(false)
+            switch result {
+            case .success:
+                self?.onNextScreen.send(())
+            case .failure(let error):
+                self?.handleError(error)
+            }
+        }
+    }
+
     private func handleError(_ error: Error) {
         print("AAA log out failed: \(error.localizedDescription)")
     }

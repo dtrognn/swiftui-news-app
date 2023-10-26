@@ -83,4 +83,17 @@ class FirebaseManager: BaseVM {
             complete(.failure(error))
         }
     }
+    
+    func deleteUser(complete: @escaping (_ result: Result<Bool, Error>) -> Void) {
+        guard let user = Auth.auth().currentUser else { return }
+        user.delete { error in
+            if let error = error {
+                complete(.failure(error))
+            } else {
+                self.userSession = nil
+                self.currentUser = nil
+                complete(.success(true))
+            }
+        }
+    }
 }
