@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var webviewVM = WebViewVM()
+    @StateObject private var vm = SearchVM()
 
     var screenConfiguration: ScreenConfiguration {
         return ScreenConfiguration(title: "Search article", showBackButton: false, hiddenTabbar: false, showUnderline: true)
