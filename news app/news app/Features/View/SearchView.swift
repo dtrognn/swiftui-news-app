@@ -11,17 +11,14 @@ struct SearchView: View {
     @StateObject private var webviewVM = WebViewVM()
 
     var screenConfiguration: ScreenConfiguration {
-        return ScreenConfiguration(title: "Search article", hiddenTabbar: false)
+        return ScreenConfiguration(title: "Search article", showBackButton: false, hiddenTabbar: false, showUnderline: true)
     }
 
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
-            ZStack {
-                WebViewCommon(webviewVM)
-                    .onAppear {
-                        webviewVM.loadData("https://www.thedailybeast.com/dems-turn-mike-johnsons-first-viral-moment-into-anti-gop-ad")
-                    }
-            }
+            VStack {
+                SearchBarView(text: $vm.text)
+            }.padding(.top, AppConfig.layout.standardSpace)
         }
     }
 }
