@@ -12,7 +12,7 @@ struct UserInfoView: View {
     @StateObject private var vm = UserInfoVM()
 
     var screenConfiguration: ScreenConfiguration {
-        return ScreenConfiguration(title: "", showNaviBar: false)
+        return ScreenConfiguration(title: "", showNaviBar: false, hiddenTabbar: false)
     }
 
     var body: some View {
