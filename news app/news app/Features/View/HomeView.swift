@@ -29,8 +29,8 @@ struct HomeView: View {
                             }
                         }
                     }
-                }.padding([.horizontal, .top], AppConfig.layout.standardSpace)
-            }
+                }.padding(.horizontal, AppConfig.layout.standardSpace)
+            }.padding(.top, AppConfig.layout.standardSpace)
         }.onAppear {
             Task { await vm.getData() }
         }

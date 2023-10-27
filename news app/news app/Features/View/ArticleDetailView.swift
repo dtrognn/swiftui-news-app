@@ -12,7 +12,7 @@ struct ArticleDetailView: View {
     var data: ArticleItemViewData?
 
     var screenConfiguration: ScreenConfiguration {
-        return ScreenConfiguration(title: "Article", showNaviBar: true)
+        return ScreenConfiguration(title: "Article", showNaviBar: true, showUnderline: true)
     }
 
     var body: some View {

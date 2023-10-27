@@ -12,11 +12,13 @@ public class ScreenConfiguration: ObservableObject {
     @Published public var showBackButton: Bool
     @Published public var showNaviBar: Bool
     @Published public var hiddenTabbar: Bool
-    
-    public init(title: String, showBackButton: Bool = true, showNaviBar: Bool = true, hiddenTabbar: Bool = true) {
+    @Published public var showUnderline: Bool
+
+    public init(title: String, showBackButton: Bool = true, showNaviBar: Bool = true, hiddenTabbar: Bool = true, showUnderline: Bool = false) {
         self.title = title
         self.showBackButton = showBackButton
         self.showNaviBar = showNaviBar
         self.hiddenTabbar = hiddenTabbar
+        self.showUnderline = showUnderline
     }
 }
