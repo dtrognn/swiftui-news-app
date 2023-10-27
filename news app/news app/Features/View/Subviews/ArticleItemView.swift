@@ -109,8 +109,7 @@ private extension ArticleItemView {
 
     var bookmarkImage: some View {
         return Image(systemName: data.isBookMark ? "bookmark.fill" : "bookmark")
-            .renderingMode(.template)
-            .foregroundColor(AppConfig.theme.iconColor)
+            .applyTheme()
     }
 
     var sharedButton: some View {
@@ -123,8 +122,7 @@ private extension ArticleItemView {
 
     var sharedImage: some View {
         return Image(systemName: "square.and.arrow.up")
-            .renderingMode(.template)
-            .foregroundColor(AppConfig.theme.iconColor)
+            .applyTheme()
     }
 
     var circleBackground: some View {

@@ -29,8 +29,7 @@ struct ArticleDetailView: View {
             }.onAppear {
                 vm.loadData(data?.url ?? "")
             }
-        }.navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
+        }
     }
 }
 
