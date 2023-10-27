@@ -26,6 +26,7 @@ struct ScreenContainerView<Content: View>: View {
                 }
                 content()
                     .navigationBarHidden(true)
+                    .hiddenTabBar(screenConfiguration.hiddenTabbar)
             }
         }.ignoresSafeArea()
     }

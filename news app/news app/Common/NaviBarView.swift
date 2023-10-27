@@ -28,7 +28,9 @@ struct NaviBarView: View {
                 .background(
                     Color.clear
                         .ignoresSafeArea(edges: .top))
-//            StraightLine()
+            if screenConfiguration.showUnderline {
+                StraightLine()
+            }
         }.padding(.top, AppConfig.layout.standardSpace)
     }
 }

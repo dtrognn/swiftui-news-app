@@ -13,11 +13,9 @@ class SplashScreenVM: BaseVM {
     var onLoggedIn = PassthroughSubject<Bool, Never>()
 
     func handleAppState() {
-        showLoading(true)
         FirebaseManager.shared.$userSession.sink { user in
             let isLoggedIn = user != nil
             self.onLoggedIn.send(isLoggedIn)
-            self.showLoading(false)
         }.store(in: &cancellableSet)
     }
 }
