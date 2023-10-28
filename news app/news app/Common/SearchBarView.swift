@@ -31,6 +31,8 @@ private extension SearchBarView {
             .cornerRadius(AppConfig.layout.standardCornerRadius)
             .onTapGesture {
                 isEditing = true
+            }.onSubmit {
+                isEditing = false
             }
     }
 

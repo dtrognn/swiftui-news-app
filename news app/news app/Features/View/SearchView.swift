@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var vm = SearchVM()
+    @State private var selectedArticle: ArticleItemViewData? = nil
+    @State private var isShowWebview: Bool = false
 
     var screenConfiguration: ScreenConfiguration {
         return ScreenConfiguration(title: "Search article", showBackButton: false, hiddenTabbar: false, showUnderline: true)
@@ -16,9 +18,34 @@ struct SearchView: View {
 
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
-            VStack {
+            VStack(spacing: AppConfig.layout.standardSpace) {
+                NavigationLink(destination: ArticleDetailView(data: selectedArticle), isActive: $isShowWebview) {}
                 SearchBarView(text: $vm.text)
-            }.padding(.top, AppConfig.layout.standardSpace)
+
+                VStack {
+                    if vm.isLoading {
+                        ProgressView().applyTheme()
+                            .padding(.vertical, AppConfig.layout.standardSpace)
+                            .frame(maxWidth: .infinity)
+                    }
+
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: AppConfig.layout.standardSpace) {
+                            ForEach(vm.news) { article in
+                                ArticleItemView(data: article) { data in
+                                    selectedArticle = data
+                                    isShowWebview = true
+                                }
+                            }
+                        }
+                    }.onChange(of: vm.text) { _ in
+                        vm.getData()
+                    }.refreshable {
+                        vm.isLoading = false
+                        vm.getData()
+                    }
+                }.padding(.horizontal, AppConfig.layout.standardSpace)
+            }
         }
     }
 }
