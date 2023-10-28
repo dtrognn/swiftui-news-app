@@ -39,13 +39,18 @@ struct SearchView: View {
                             }
                         }
                     }.onChange(of: vm.text) { _ in
-                        vm.getData()
+                        loadData(showLoading: true)
                     }.refreshable {
-                        vm.isLoading = false
-                        vm.getData()
+                        loadData(showLoading: false)
                     }
                 }.padding(.horizontal, AppConfig.layout.standardSpace)
             }
+        }
+    }
+
+    private func loadData(showLoading: Bool) {
+        DispatchQueue.main.async {
+            vm.getData(showLoading: showLoading)
         }
     }
 }

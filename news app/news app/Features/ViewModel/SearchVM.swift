@@ -22,8 +22,8 @@ class SearchVM: NetworkManager {
         get(path: endpoint, complete: complete)
     }
 
-    func getData() {
-        isLoading = true
+    func getData(showLoading: Bool) {
+        isLoading = showLoading
         getRequest { [weak self] result in
             switch result {
             case .success(let data):
