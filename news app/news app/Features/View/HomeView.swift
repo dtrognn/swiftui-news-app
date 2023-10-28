@@ -33,6 +33,8 @@ struct HomeView: View {
             }.padding(.top, AppConfig.layout.standardSpace)
         }.onAppear {
             Task { await vm.getData() }
+        }.refreshable {
+            Task { await vm.getData() }
         }
     }
 }

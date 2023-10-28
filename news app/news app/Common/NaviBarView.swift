@@ -18,7 +18,7 @@ struct NaviBarView: View {
                     backButton
                 }
                 Spacer()
-                titleText
+                titleText.padding(.vertical, AppConfig.layout.mediumSpace)
                 Spacer()
                 if screenConfiguration.showBackButton {
                     backButton.opacity(0)

@@ -51,7 +51,7 @@ class HomeVM: NetworkManager {
     }
 }
 
-private extension ArticleItemViewData {
+extension ArticleItemViewData {
     convenience init(_ data: Article) {
         self.init(
             source: data.source?.name ?? " ",

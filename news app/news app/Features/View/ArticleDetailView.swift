@@ -20,7 +20,7 @@ struct ArticleDetailView: View {
             ZStack {
                 VStack(spacing: AppConfig.layout.zero) {
                     if vm.showLoading {
-                        ProgressView()
+                        ProgressView().applyTheme()
                             .padding(.vertical, AppConfig.layout.standardSpace)
                             .frame(maxWidth: .infinity)
                     }
