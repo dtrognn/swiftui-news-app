@@ -57,25 +57,25 @@ struct UserInfoView: View {
 
 private extension UserInfoView {
     var userInfoView: some View {
-        return RowCommonView(image: "person", title: "User infomation") {
+        return RowCommonView(type: .normal, image: "person", title: "User infomation") {
             // TODO: -
         }
     }
 
     var bookmarkRowView: some View {
-        return RowCommonView(image: "bookmark", title: "Bookmark") {
-            // TODO: -
+        return NavigationLink(destination: BookmarkView()) {
+            RowCommonView(type: .normal, image: "bookmark", title: "Bookmark") {}
         }
     }
 
     var logoutView: some View {
-        return RowCommonView(image: "rectangle.portrait.and.arrow.forward", title: "Logout", isShowArrow: false) {
+        return RowCommonView(type: .button, image: "rectangle.portrait.and.arrow.forward", title: "Logout", isShowArrow: false) {
             vm.logOut()
         }
     }
 
     var deleteAccountView: some View {
-        return RowCommonView(image: "person.slash", title: "Delete account", isShowArrow: false) {
+        return RowCommonView(type: .button, image: "person.slash", title: "Delete account", isShowArrow: false) {
             vm.deleteUser()
         }
     }
