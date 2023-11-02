@@ -30,9 +30,21 @@ struct UserInfoView: View {
                     }
 
                 }.frame(maxWidth: .infinity, alignment: .leading)
+
                 VStack(spacing: AppConfig.layout.standardSpace) {
-                    deleteAccountButton
-                    logoutButton
+                    Group {
+                        VStack(spacing: AppConfig.layout.zero) {
+                            userInfoView
+                            bookmarkRowView
+                        }.cornerRadius(AppConfig.layout.standardCornerRadius)
+                    }
+
+                    Group {
+                        VStack(spacing: AppConfig.layout.zero) {
+                            deleteAccountView
+                            logoutView
+                        }.cornerRadius(AppConfig.layout.standardCornerRadius)
+                    }
                 }
             }.padding(.horizontal, AppConfig.layout.standardSpace)
                 .padding(.top, AppConfig.layout.hugeSpace * 3)
@@ -45,18 +57,6 @@ struct UserInfoView: View {
 }
 
 private extension UserInfoView {
-    var logoutButton: some View {
-        return CommonButton(text: "Logout", isEnable: .constant(true)) {
-            vm.logOut()
-        }
-    }
-
-    var deleteAccountButton: some View {
-        return CommonButton(text: "Delete account", isEnable: .constant(true)) {
-            vm.deleteUser()
-        }
-    }
-
     var editButton: some View {
         return Button {
             // TODO: - Handle edit profile
@@ -65,6 +65,30 @@ private extension UserInfoView {
                 .resizable()
                 .applyTheme()
                 .frame(width: 20, height: 20)
+        }
+    }
+
+    var userInfoView: some View {
+        return RowCommonView(image: "person", title: "User infomation") {
+            // TODO: -
+        }
+    }
+
+    var bookmarkRowView: some View {
+        return RowCommonView(image: "bookmark", title: "Bookmark") {
+            // TODO: -
+        }
+    }
+
+    var logoutView: some View {
+        return RowCommonView(image: "rectangle.portrait.and.arrow.forward", title: "Logout", isShowArrow: false) {
+            vm.logOut()
+        }
+    }
+
+    var deleteAccountView: some View {
+        return RowCommonView(image: "person.slash", title: "Delete account", isShowArrow: false) {
+            vm.deleteUser()
         }
     }
 
