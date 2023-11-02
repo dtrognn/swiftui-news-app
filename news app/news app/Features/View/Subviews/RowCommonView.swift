@@ -7,31 +7,57 @@
 
 import SwiftUI
 
+enum RowType {
+    case normal
+    case button
+}
+
 struct RowCommonView: View {
+    var type: RowType
     var image: String
     var title: String
     var isShowArrow = true
     var onAction: () -> Void
 
     var body: some View {
-        Button {
-            onAction()
-        } label: {
-            VStack(spacing: AppConfig.layout.zero) {
-                VStack(spacing: AppConfig.layout.zero) {
-                    HStack(spacing: AppConfig.layout.zero) {
-                        HStack(spacing: AppConfig.layout.mediumSpace) {
-                            leftImage
-                            titleText
+        VStack {
+            if type == .button {
+                Button {
+                    onAction()
+                } label: {
+                    VStack(spacing: AppConfig.layout.zero) {
+                        VStack(spacing: AppConfig.layout.zero) {
+                            HStack(spacing: AppConfig.layout.zero) {
+                                HStack(spacing: AppConfig.layout.mediumSpace) {
+                                    leftImage
+                                    titleText
+                                }
+                                Spacer()
+                                if isShowArrow {
+                                    arrowImage
+                                }
+                            }.padding(.all, AppConfig.layout.standardSpace)
+                            StraightLine().padding(.horizontal, AppConfig.layout.standardSpace)
                         }
-                        Spacer()
-                        if isShowArrow {
-                            arrowImage
-                        }
-                    }.padding(.all, AppConfig.layout.standardSpace)
-                    StraightLine().padding(.horizontal, AppConfig.layout.standardSpace)
+                    }.background(AppConfig.theme.rowCommonBackgroundColor)
                 }
-            }.background(AppConfig.theme.rowCommonBackgroundColor)
+            } else {
+                VStack(spacing: AppConfig.layout.zero) {
+                    VStack(spacing: AppConfig.layout.zero) {
+                        HStack(spacing: AppConfig.layout.zero) {
+                            HStack(spacing: AppConfig.layout.mediumSpace) {
+                                leftImage
+                                titleText
+                            }
+                            Spacer()
+                            if isShowArrow {
+                                arrowImage
+                            }
+                        }.padding(.all, AppConfig.layout.standardSpace)
+                        StraightLine().padding(.horizontal, AppConfig.layout.standardSpace)
+                    }
+                }.background(AppConfig.theme.rowCommonBackgroundColor)
+            }
         }
     }
 }
@@ -55,5 +81,5 @@ private extension RowCommonView {
 }
 
 #Preview {
-    RowCommonView(image: "bookmark.fill", title: "Bookmark", onAction: {})
+    RowCommonView(type: .normal, image: "bookmark.fill", title: "Bookmark", onAction: {})
 }
