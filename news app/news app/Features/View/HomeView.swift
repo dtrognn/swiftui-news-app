@@ -11,6 +11,7 @@ struct HomeView: View {
     @StateObject private var vm = HomeVM()
     @State private var selectedArticle: ArticleItemViewData? = nil
     @State private var isShowWebview: Bool = false
+    private let bookmark = BookmarkVM.shared
 
     var screenConfiguration: ScreenConfiguration {
         return ScreenConfiguration(title: "Top headlines", showBackButton: false, hiddenTabbar: false)
@@ -33,7 +34,9 @@ struct HomeView: View {
                     }
                     LazyVStack(spacing: AppConfig.layout.standardSpace) {
                         ForEach(vm.news) { article in
-                            ArticleItemView(data: article) { data in
+                            ArticleItemView(data: article, onBookmark: { article in
+                                bookmark.addBookmark(article)
+                            }) { data in
                                 selectedArticle = data
                                 isShowWebview = true
                             }

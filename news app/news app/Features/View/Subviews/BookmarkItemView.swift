@@ -1,20 +1,20 @@
 //
-//  ArticleItemView.swift
+//  BookmarkItemView.swift
 //  news app
 //
-//  Created by dtrognn on 26/10/2023.
+//  Created by dtrognn on 02/11/2023.
 //
 
 import SwiftUI
 
-struct ArticleItemView: View {
+struct BookmarkItemView: View {
     @ObservedObject var data: ArticleItemViewData
-    var onBookmark: ((ArticleItemViewData) -> Void)?
+    var onDelete: ((ArticleItemViewData) -> Void)?
     var onAction: (ArticleItemViewData) -> Void
     
-    init(data: ArticleItemViewData, onBookmark: ( (ArticleItemViewData) -> Void)? = nil, onAction: @escaping (ArticleItemViewData) -> Void) {
+    init(data: ArticleItemViewData, onDelete: ( (ArticleItemViewData) -> Void)? = nil, onAction: @escaping (ArticleItemViewData) -> Void) {
         self.data = data
-        self.onBookmark = onBookmark
+        self.onDelete = onDelete
         self.onAction = onAction
     }
 
@@ -34,7 +34,7 @@ struct ArticleItemView: View {
                             authorView
                             Spacer()
                             HStack {
-                                bookmarkButton
+                                deleteButton
                                 sharedButton
                             }
                         }
@@ -47,7 +47,7 @@ struct ArticleItemView: View {
     }
 }
 
-private extension ArticleItemView {
+private extension BookmarkItemView {
     var titleText: some View {
         return Text(data.title)
             .font(AppConfig.font.regular16)
@@ -106,17 +106,17 @@ private extension ArticleItemView {
             .multilineTextAlignment(.leading)
     }
 
-    var bookmarkButton: some View {
+    var deleteButton: some View {
         return Button {
             data.isBookMark.toggle()
-            onBookmark?(data)
+            onDelete?(data)
         } label: {
             circleBackground.overlay(bookmarkImage)
         }
     }
 
     var bookmarkImage: some View {
-        return Image(systemName: data.isBookMark ? "bookmark.fill" : "bookmark")
+        return Image(systemName: "trash")
             .applyTheme()
     }
 
