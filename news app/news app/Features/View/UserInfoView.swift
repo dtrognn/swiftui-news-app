@@ -18,7 +18,7 @@ struct UserInfoView: View {
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
             VStack(spacing: AppConfig.layout.hugeSpace) {
-                HStack(alignment: .top) {
+                HStack(alignment: .center) {
                     avatarView
                     HStack(alignment: .top, spacing: AppConfig.layout.standardSpace) {
                         VStack(alignment: .leading, spacing: AppConfig.layout.mediumSpace) {
@@ -26,13 +26,24 @@ struct UserInfoView: View {
                             emailInfoText
                         }
                         Spacer()
-                        editButton
                     }
 
                 }.frame(maxWidth: .infinity, alignment: .leading)
+
                 VStack(spacing: AppConfig.layout.standardSpace) {
-                    deleteAccountButton
-                    logoutButton
+                    Group {
+                        VStack(spacing: AppConfig.layout.zero) {
+                            userInfoView
+                            bookmarkRowView
+                        }.cornerRadius(AppConfig.layout.standardCornerRadius)
+                    }
+
+                    Group {
+                        VStack(spacing: AppConfig.layout.zero) {
+                            deleteAccountView
+                            logoutView
+                        }.cornerRadius(AppConfig.layout.standardCornerRadius)
+                    }
                 }
             }.padding(.horizontal, AppConfig.layout.standardSpace)
                 .padding(.top, AppConfig.layout.hugeSpace * 3)
@@ -45,26 +56,27 @@ struct UserInfoView: View {
 }
 
 private extension UserInfoView {
-    var logoutButton: some View {
-        return CommonButton(text: "Logout", isEnable: .constant(true)) {
+    var userInfoView: some View {
+        return RowCommonView(type: .normal, image: "person", title: "User infomation") {
+            // TODO: -
+        }
+    }
+
+    var bookmarkRowView: some View {
+        return NavigationLink(destination: BookmarkView()) {
+            RowCommonView(type: .normal, image: "bookmark", title: "Bookmark") {}
+        }
+    }
+
+    var logoutView: some View {
+        return RowCommonView(type: .button, image: "rectangle.portrait.and.arrow.forward", title: "Logout", isShowArrow: false) {
             vm.logOut()
         }
     }
 
-    var deleteAccountButton: some View {
-        return CommonButton(text: "Delete account", isEnable: .constant(true)) {
+    var deleteAccountView: some View {
+        return RowCommonView(type: .button, image: "person.slash", title: "Delete account", isShowArrow: false) {
             vm.deleteUser()
-        }
-    }
-
-    var editButton: some View {
-        return Button {
-            // TODO: - Handle edit profile
-        } label: {
-            Image(systemName: "square.and.pencil.circle")
-                .resizable()
-                .applyTheme()
-                .frame(width: 20, height: 20)
         }
     }
 
