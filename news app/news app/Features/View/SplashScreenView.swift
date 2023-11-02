@@ -19,7 +19,7 @@ struct SplashScreenView: View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
             VStack {
                 Spacer()
-                Text("Splash Screen")
+                logoImage
                 Spacer()
             }
         }.onAppear {
@@ -33,6 +33,10 @@ struct SplashScreenView: View {
                 appSceneRouter.rootView = .login
             }
         }
+    }
+    
+    var logoImage: some View {
+        return LogoView()
     }
 }
 
