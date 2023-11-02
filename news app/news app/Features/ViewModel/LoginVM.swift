@@ -12,6 +12,8 @@ class LoginVM: FirebaseManager {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isEnableButton: Bool = false
+    @Published var isShowError: Bool = false
+    @Published var errorMessage: String = ""
 
     var onNextScreen = PassthroughSubject<Void, Never>()
 
@@ -36,5 +38,7 @@ class LoginVM: FirebaseManager {
 
     private func handleError(_ error: Error) {
         print("AAA login failed: \(error.localizedDescription)")
+        errorMessage = error.localizedDescription
+        isShowError = true
     }
 }

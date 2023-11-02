@@ -39,7 +39,7 @@ struct LoginView: View {
                     .padding(.horizontal, AppConfig.layout.standardSpace)
             }.onReceive(vm.onNextScreen) { _ in
                 appSceneRouter.rootView = .tabview
-            }
+            }.alertView(alertConfiguration)
         }.environmentObject(appSceneRouter)
     }
 }
@@ -87,6 +87,13 @@ private extension LoginView {
         } label: {
             Image("apple")
         }
+    }
+    
+    var alertConfiguration: AlertConfiguration {
+        return AlertConfiguration(isPresented: $vm.isShowError,
+                                  title: "Error",
+                                  message: vm.errorMessage,
+                                  primaryButtonText: "Close") {} secondaryAction: {}
     }
     
     var emailTextField: some View {
