@@ -40,7 +40,7 @@ struct RegisterView: View {
                     .padding(.horizontal, AppConfig.layout.standardSpace)
             }.onReceive(vm.onNextScreen, perform: { _ in
                 appSceneRouter.rootView = .tabview
-            })
+            }).alertView(alertConfiguration)
         }
     }
 }
@@ -61,6 +61,13 @@ private extension RegisterView {
                 .foregroundColor(AppConfig.theme.textUnderlineColor)
                 .underline()
         }
+    }
+    
+    var alertConfiguration: AlertConfiguration {
+        return AlertConfiguration(isPresented: $vm.isShowError,
+                                  title: "Error",
+                                  message: vm.errorMessage,
+                                  primaryButtonText: "Close") {} secondaryAction: {}
     }
 
     var fullnameTextField: some View {
