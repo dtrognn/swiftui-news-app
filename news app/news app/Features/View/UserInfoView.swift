@@ -18,7 +18,7 @@ struct UserInfoView: View {
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
             VStack(spacing: AppConfig.layout.hugeSpace) {
-                HStack(alignment: .top) {
+                HStack(alignment: .center) {
                     avatarView
                     HStack(alignment: .top, spacing: AppConfig.layout.standardSpace) {
                         VStack(alignment: .leading, spacing: AppConfig.layout.mediumSpace) {
@@ -26,7 +26,6 @@ struct UserInfoView: View {
                             emailInfoText
                         }
                         Spacer()
-                        editButton
                     }
 
                 }.frame(maxWidth: .infinity, alignment: .leading)
@@ -57,17 +56,6 @@ struct UserInfoView: View {
 }
 
 private extension UserInfoView {
-    var editButton: some View {
-        return Button {
-            // TODO: - Handle edit profile
-        } label: {
-            Image(systemName: "square.and.pencil.circle")
-                .resizable()
-                .applyTheme()
-                .frame(width: 20, height: 20)
-        }
-    }
-
     var userInfoView: some View {
         return RowCommonView(image: "person", title: "User infomation") {
             // TODO: -
