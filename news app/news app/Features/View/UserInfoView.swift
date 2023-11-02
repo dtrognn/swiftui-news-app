@@ -10,6 +10,7 @@ import SwiftUI
 struct UserInfoView: View {
     @EnvironmentObject private var appSceneRouter: AppSceneRouter
     @StateObject private var vm = UserInfoVM()
+    @State private var isShowError: Bool = false
 
     var screenConfiguration: ScreenConfiguration {
         return ScreenConfiguration(title: "", showNaviBar: false, hiddenTabbar: false)
@@ -51,7 +52,7 @@ struct UserInfoView: View {
             vm.fetchData()
         }.onReceive(vm.onNextScreen, perform: { _ in
             appSceneRouter.rootView = .login
-        })
+        }).alertView(alertConfiguration)
     }
 }
 
@@ -70,13 +71,37 @@ private extension UserInfoView {
 
     var logoutView: some View {
         return RowCommonView(type: .button, image: "rectangle.portrait.and.arrow.forward", title: "Logout", isShowArrow: false) {
-            vm.logOut()
+            vm.alertType = .logout
+            isShowError = true
         }
     }
 
     var deleteAccountView: some View {
         return RowCommonView(type: .button, image: "person.slash", title: "Delete account", isShowArrow: false) {
-            vm.deleteUser()
+            vm.alertType = .deleteAccount
+            isShowError = true
+        }
+    }
+
+    var alertConfiguration: AlertConfiguration {
+        switch vm.alertType {
+        case .logout:
+            return AlertConfiguration(isPresented: $isShowError,
+                                      title: "Log out",
+                                      message: "Are you sure you want to log out?",
+                                      primaryButtonText: "Cancel",
+                                      secondaryButtonText: "Log out") {} secondaryAction: { vm.logOut() }
+        case .deleteAccount:
+            return AlertConfiguration(isPresented: $isShowError,
+                                      title: "Delete account",
+                                      message: "Are you sure you want to delete account?",
+                                      primaryButtonText: "Cancel",
+                                      secondaryButtonText: "Delete") {} secondaryAction: { vm.deleteUser() }
+        case .none:
+            return AlertConfiguration(isPresented: $isShowError,
+                                      title: "Error",
+                                      message: vm.errorMessage,
+                                      primaryButtonText: "Close") {} secondaryAction: {}
         }
     }
 

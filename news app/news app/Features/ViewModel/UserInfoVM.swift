@@ -8,7 +8,15 @@
 import Combine
 import Foundation
 
+enum AlertType {
+    case none
+    case logout
+    case deleteAccount
+}
+
 class UserInfoVM: FirebaseManager {
+    @Published var alertType: AlertType = .none
+    @Published var errorMessage: String = ""
     @Published var user: User?
     var onNextScreen = PassthroughSubject<Void, Never>()
 
@@ -53,5 +61,6 @@ class UserInfoVM: FirebaseManager {
 
     private func handleError(_ error: Error) {
         print("AAA log out failed: \(error.localizedDescription)")
+        errorMessage = error.localizedDescription
     }
 }
