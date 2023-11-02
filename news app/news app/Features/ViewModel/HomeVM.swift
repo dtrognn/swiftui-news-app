@@ -37,7 +37,7 @@ class HomeVM: NetworkManager {
 
     private func handleData(_ data: ArticleResponse) {
         guard let articles = data.articles else { return }
-
+        news = []
         DispatchQueue.main.async {
             articles.forEach { article in
                 let item = ArticleItemViewData(article)
