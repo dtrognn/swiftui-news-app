@@ -21,6 +21,16 @@ struct HomeView: View {
             ScrollView(showsIndicators: false) {
                 NavigationLink(destination: ArticleDetailView(data: selectedArticle), isActive: $isShowWebview, label: {})
                 VStack {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(Catergory.allCases) { category in
+                                CategoryItemView(category: category, isSelected: vm.catergory == category) { category in
+                                    vm.catergory = category
+                                    Task { await vm.getData() }
+                                }
+                            }
+                        }
+                    }
                     LazyVStack(spacing: AppConfig.layout.standardSpace) {
                         ForEach(vm.news) { article in
                             ArticleItemView(data: article) { data in

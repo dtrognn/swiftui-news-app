@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Catergory: String {
+enum Catergory: String, CaseIterable, Identifiable {
     case general
     case business
     case entertainment
@@ -15,4 +15,6 @@ enum Catergory: String {
     case science
     case sports
     case technology
+
+    var id: String { rawValue }
 }
