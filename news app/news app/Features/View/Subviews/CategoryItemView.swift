@@ -18,7 +18,7 @@ struct CategoryItemView: View {
         } label: {
             Text(category.rawValue)
                 .font(AppConfig.font.regular14)
-                .foregroundColor(AppConfig.theme.textNormalColor)
+                .foregroundColor(isSelected ? AppConfig.theme.whiteTextColor : AppConfig.theme.textNormalColor)
                 .padding(.horizontal, AppConfig.layout.mediumSpace)
                 .padding(.vertical, AppConfig.layout.smallSpace)
                 .background(isSelected ? AppConfig.theme.btnEnableColor : AppConfig.theme.lineColor)

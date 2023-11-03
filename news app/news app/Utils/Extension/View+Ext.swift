@@ -27,6 +27,12 @@ public extension View {
             return modifier(ShowTabBar()).asAnyView
         }
     }
+    
+    func alertView(_ alertConfiguration: AlertConfiguration) -> some View {
+        return alert(isPresented: alertConfiguration.isPresented) {
+            Alert.alert(alertConfiguration)
+        }
+    }
 }
 
 struct HiddenTabBar: ViewModifier {

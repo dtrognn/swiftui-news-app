@@ -19,28 +19,30 @@ struct RegisterView: View {
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
             ScrollView(showsIndicators: false) {
-                VStack(spacing: AppConfig.layout.standardSpace) {
-                    Group {
-                        VStack(alignment: .trailing, spacing: AppConfig.layout.standardSpace) {
-                            VStack(spacing: AppConfig.layout.standardSpace) {
-                                fullnameView
-                                emailView
-                                passwordView
-                                confirmPasswordView
+                VStack(spacing: AppConfig.layout.zero) {
+                    logoImage
+                    VStack(spacing: AppConfig.layout.standardSpace) {
+                        Group {
+                            VStack(alignment: .trailing, spacing: AppConfig.layout.standardSpace) {
+                                VStack(spacing: AppConfig.layout.standardSpace) {
+                                    fullnameView
+                                    emailView
+                                    passwordView
+                                    confirmPasswordView
+                                }
+
+                                registerButton
                             }
-
-                            registerButton
                         }
-                    }
 
-                    Spacer()
+                        Spacer()
 
-                    backToLoginButton
+                        backToLoginButton
+                    }.padding(.horizontal, AppConfig.layout.standardSpace)
                 }.padding(.top, AppConfig.layout.hugeSpace * 2)
-                    .padding(.horizontal, AppConfig.layout.standardSpace)
             }.onReceive(vm.onNextScreen, perform: { _ in
                 appSceneRouter.rootView = .tabview
-            })
+            }).alertView(alertConfiguration)
         }
     }
 }
@@ -61,6 +63,13 @@ private extension RegisterView {
                 .foregroundColor(AppConfig.theme.textUnderlineColor)
                 .underline()
         }
+    }
+
+    var alertConfiguration: AlertConfiguration {
+        return AlertConfiguration(isPresented: $vm.isShowError,
+                                  title: "Error",
+                                  message: vm.errorMessage,
+                                  primaryButtonText: "Close") {} secondaryAction: {}
     }
 
     var fullnameTextField: some View {
@@ -105,6 +114,10 @@ private extension RegisterView {
             conirmPassText
             confirmPassTextField
         }
+    }
+    
+    var logoImage: some View {
+        return LogoView()
     }
 
     var emailText: some View {

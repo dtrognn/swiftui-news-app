@@ -18,28 +18,30 @@ struct LoginView: View {
     var body: some View {
         ScreenContainerView(screenConfiguration: screenConfiguration) {
             ScrollView(showsIndicators: false) {
-                VStack(spacing: AppConfig.layout.standardSpace) {
-                    Group {
-                        VStack(alignment: .trailing, spacing: AppConfig.layout.standardSpace) {
-                            VStack(spacing: AppConfig.layout.standardSpace) {
-                                emailView
-                                passwordView
+                VStack(spacing: AppConfig.layout.zero) {
+                    logoImage
+                    VStack(spacing: AppConfig.layout.standardSpace) {
+                        Group {
+                            VStack(alignment: .trailing, spacing: AppConfig.layout.standardSpace) {
+                                VStack(spacing: AppConfig.layout.standardSpace) {
+                                    emailView
+                                    passwordView
+                                }
+                                HStack(spacing: AppConfig.layout.zero) {
+                                    registerButton
+                                    Spacer()
+                                    forgotPasswordButton
+                                }
+                                loginButton
                             }
-                            HStack(spacing: AppConfig.layout.zero) {
-                                registerButton
-                                Spacer()
-                                forgotPasswordButton
-                            }
-                            loginButton
                         }
-                    }
-                    orLoginWithText
-                    loginSocial
+                        orLoginWithText
+                        loginSocial
+                    }.padding(.horizontal, AppConfig.layout.standardSpace)
                 }.padding(.top, AppConfig.layout.hugeSpace * 2)
-                    .padding(.horizontal, AppConfig.layout.standardSpace)
             }.onReceive(vm.onNextScreen) { _ in
                 appSceneRouter.rootView = .tabview
-            }
+            }.alertView(alertConfiguration)
         }.environmentObject(appSceneRouter)
     }
 }
@@ -89,6 +91,13 @@ private extension LoginView {
         }
     }
     
+    var alertConfiguration: AlertConfiguration {
+        return AlertConfiguration(isPresented: $vm.isShowError,
+                                  title: "Error",
+                                  message: vm.errorMessage,
+                                  primaryButtonText: "Close") {} secondaryAction: {}
+    }
+    
     var emailTextField: some View {
         return CommonTextField(text: $vm.email, placeholder: "Enter your email")
     }
@@ -125,6 +134,10 @@ private extension LoginView {
             ggLogin
             appleLogin
         }
+    }
+    
+    var logoImage: some View {
+        return LogoView()
     }
     
     var emailText: some View {

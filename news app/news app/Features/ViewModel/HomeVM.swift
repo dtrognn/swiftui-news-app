@@ -11,6 +11,8 @@ class HomeVM: NetworkManager {
     @Published var news: [ArticleItemViewData] = []
     @Published var catergory: Catergory = .general
     @Published var country: Country = .us
+    @Published var isShowError: Bool = false
+    @Published var errorMessage: String = ""
     private var newsType: NewsType = .topHeadlines
 
     private func getEndpoint() -> String {
@@ -48,6 +50,8 @@ class HomeVM: NetworkManager {
 
     private func handleError(_ error: Error) {
         print("AAA register error: \(error.localizedDescription)")
+        errorMessage = error.localizedDescription
+        isShowError = true
     }
 }
 

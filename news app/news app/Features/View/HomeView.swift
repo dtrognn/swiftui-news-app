@@ -32,13 +32,17 @@ struct HomeView: View {
                             }
                         }
                     }
-                    LazyVStack(spacing: AppConfig.layout.standardSpace) {
-                        ForEach(vm.news) { article in
-                            ArticleItemView(data: article, onBookmark: { article in
-                                bookmark.addBookmark(article)
-                            }) { data in
-                                selectedArticle = data
-                                isShowWebview = true
+                    if vm.news.isEmpty {
+                        emptyView.padding(.top, AppConfig.layout.hugeSpace)
+                    } else {
+                        LazyVStack(spacing: AppConfig.layout.standardSpace) {
+                            ForEach(vm.news) { article in
+                                ArticleItemView(data: article, onBookmark: { article in
+                                    bookmark.addBookmark(article)
+                                }) { data in
+                                    selectedArticle = data
+                                    isShowWebview = true
+                                }
                             }
                         }
                     }
@@ -48,7 +52,22 @@ struct HomeView: View {
             Task { await vm.getData() }
         }.refreshable {
             Task { await vm.getData() }
-        }
+        }.alertView(alertConfiguration)
+    }
+}
+
+private extension HomeView {
+    var alertConfiguration: AlertConfiguration {
+        return AlertConfiguration(isPresented: $vm.isShowError,
+                                  title: "Error",
+                                  message: vm.errorMessage,
+                                  primaryButtonText: "Close") {} secondaryAction: {}
+    }
+
+    var emptyView: some View {
+        return Text("Empty data")
+            .font(AppConfig.font.regular16)
+            .foregroundColor(AppConfig.theme.textNormalColor)
     }
 }
 
