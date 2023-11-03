@@ -19,6 +19,16 @@ class RegisterVM: FirebaseManager {
 
     var onNextScreen = PassthroughSubject<Void, Never>()
 
+    override func makeSubscription() {
+        Publishers.CombineLatest4($fullname, $email, $password, $password).map { fullname, email, password, confirmPassword in
+            UtilsHelper.checkValidate(fullname, validateType: .notEmpty) && UtilsHelper.checkValidate(email, validateType: .notEmpty) && self.validatePassword(password) && self.validatePassword(confirmPassword)
+        }.assign(to: &$isEnableButton)
+    }
+
+    private func validatePassword(_ pass: String) -> Bool {
+        return UtilsHelper.checkValidate(pass, validateType: .minimumLength)
+    }
+
     func register() {
         showLoading(true)
         register(with: email, password: password, fullname: fullname) { [weak self] result in
